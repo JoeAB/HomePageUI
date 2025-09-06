@@ -1,18 +1,21 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
-import type { MapMarker } from "../sharedTypes/geoCoordinateTypes";
+import type { GeoCoordinate, MapMarker } from "../sharedTypes/GeoCoordinateTypes";
 
 interface MapWidgetParameters {
+    startingCoordinates: GeoCoordinate,
     mapMarkers: MapMarker[];
+    height: string,
+    width: string
 }
 
-const MapWidget: React.FC<MapWidgetParameters> = ({ mapMarkers }) => {
+const MapWidget: React.FC<MapWidgetParameters> = ({ startingCoordinates, mapMarkers, height, width }) => {
   return (
     <MapContainer 
       id="mapContainer" 
-      center={[51.505, -0.09]} 
-      zoom={13} 
-      scrollWheelZoom={false}
-      style={{ height: '400px', width: '400px' }}
+      center={[startingCoordinates.lattitude, startingCoordinates.longitude]} 
+      zoom={11} 
+      scrollWheelZoom={true}
+      style={{ height: height, width: width }}
     >
         <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
