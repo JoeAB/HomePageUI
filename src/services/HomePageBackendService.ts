@@ -1,5 +1,5 @@
 import homepage_api_address from "../globalConfig/HomepageBackend";
-import type { SteamGame } from "../sharedTypes/BackendServiceTypes";
+import type { SteamGame, Track } from "../sharedTypes/BackendServiceTypes";
 import type { ListItem } from "../sharedTypes/WidgetListTypes";
 
 
@@ -23,6 +23,30 @@ export class HomepageBackendService {
       title: game.name,
       link: `https://store.steampowered.com/app/${game.appid}`,
       imageUrl: `https://steamcdn-a.akamaihd.net/steam/apps/${game.appid}/library_600x900_2x.jpg`
+    }));
+  }
+
+async getRecentlyListenedToTracks(): Promise<ListItem[]> {
+    const response = await fetch(`${this.baseUrl}/music/recently-played`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch recently played tracks: ${response.status}`);
+    }
+
+    const tracks: Track[] = await response.json();
+
+        const uniqueTracks = tracks.filter((track, index, self) =>
+            index === self.findIndex(
+                (t) =>
+                t.name.toLowerCase() === track.name.toLowerCase() &&
+                t.artist.name.toLowerCase() === track.artist.name.toLowerCase()
+            )
+        );
+
+    return uniqueTracks.map((track) => ({
+      title: track.name,
+      link: track.url,
+      imageUrl: track.image as string
     }));
   }
 }

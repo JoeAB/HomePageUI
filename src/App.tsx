@@ -8,14 +8,27 @@ import { readContractData } from './services/DesitnationLedgerService';
 import ListWidget from './components/WidgetList';
 import { HomepageBackendService } from './services/HomePageBackendService';
 import type { ListItem } from './sharedTypes/WidgetListTypes';
+import StarMap from './components/StarMap';
 function App() {
   const backEndService = new HomepageBackendService();
 
   const[destinationsVisited, setDestinationsVistied] = useState(Array<MapMarker>(0));
   const[recentSteamGames, setRecentSteamGames] = useState(Array<ListItem>(0));
-
+  const[recentMusicTracks, setRecentMusicTracks] = useState(Array<ListItem>(0));
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const musicListItems = await backEndService.getRecentlyListenedToTracks();
+        setRecentMusicTracks(musicListItems);
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+    useEffect(() => {
     const fetchData = async () => {
       try {
         const gamesListItems = await backEndService.getRecentlyPlayedSteamGames();
@@ -44,8 +57,11 @@ function App() {
     <>
       <ListWidget title={'Recently Played Steam Games'} items={recentSteamGames} />
       <br />
+      <ListWidget title={'Recently Listened to Songs'} items={recentMusicTracks} />
       <MapWidget startingCoordinates={{lattitude: 39.2905, longitude:-76.6104}}
           mapMarkers={destinationsVisited} height='400px' width='600px' />
+          <br />
+          <StarMap />
     </>
   )
 }

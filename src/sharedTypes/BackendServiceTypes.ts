@@ -9,3 +9,33 @@ export interface SteamGame {
   playtime_linux_forever: number;
   playtime_deck_forever: number;
 }
+
+export interface Track {
+  name: string;
+  artist: {
+    name: string;
+    mbid: string | null;
+    url: string | null;
+  };
+  album: {
+    name: string | null;
+    mbid: string | null;
+    url: string | null;
+  };
+  mbid: string | null;
+  url: string;
+  image: string | null;
+  images: {
+    small: string | null;
+    medium: string | null;
+    large: string | null;
+    extralarge: string | null;
+  };
+  streamable: boolean;
+  is_now_playing: boolean;
+  played_at: {
+    timestamp: number;
+    formatted: string;
+    iso: string;
+  } | null;
+}
