@@ -1,5 +1,5 @@
 import homepage_api_address from "../globalConfig/HomepageBackend";
-import type { SteamGame, Track } from "../sharedTypes/BackendServiceTypes";
+import type { BookResult, SteamGame, Track } from "../sharedTypes/BackendServiceTypes";
 import type { ListItem } from "../sharedTypes/WidgetListTypes";
 
 
@@ -49,4 +49,21 @@ async getRecentlyListenedToTracks(): Promise<ListItem[]> {
       imageUrl: track.image as string
     }));
   }
+
+  async getCurrentReadingBooks(): Promise<ListItem[]> {
+    const response = await fetch(`${this.baseUrl}/books/currentlyReading`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch currently reading books: ${response.status}`);
+    }
+
+    const books: BookResult[] = await response.json();
+
+    return books.map((book) => ({
+      title: book.book.title,
+      link: '',
+      imageUrl: book.book.image.url
+    }));
+  }
+
 }

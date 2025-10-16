@@ -39,3 +39,17 @@ export interface Track {
     iso: string;
   } | null;
 }
+
+export interface BookResult{
+  book_id: number;
+  book: Book;
+}
+
+export interface Book{
+  title: string;
+  image: BookImage
+}
+
+export interface BookImage{
+  url: string;
+}
