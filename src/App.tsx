@@ -13,7 +13,7 @@ function App() {
     <div className="d-flex flex-column min-vh-100">
       <BrowserRouter>
         <Header />
-        <main className="py-4">
+        <main className="flex-grow-1 w-100">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/AboutMe" element={<AboutMe />} />

@@ -5,10 +5,24 @@ body {
   margin: 0;
   padding: 0;
 }
+
 main {
-  padding-top: 90px; /* makes room for fixed navbar */
+  padding-top: 90px;
   min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
 }
+
+main .container {
+  max-width: 960px;
+  width: 100%;
+  padding: 0 1rem;
+}
+
 .nav-link {
   margin-left: 1rem;
   transition: color 0.2s ease-in-out;
@@ -29,6 +43,7 @@ footer {
 header, footer {
   width: 100%;
 }
+
 .card {
   padding: 2em;
 }
@@ -37,6 +52,10 @@ header, footer {
   color: #888;
 }
 
-.mapContainer{
+.mapContainer {
   height: 400px;
+}
+
+#root{
+  width: 100%;
 }
