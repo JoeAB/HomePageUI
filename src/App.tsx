@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Homes";
 import Header from "./components/Header";
-import AboutMe from "./pages/aboutMe";
+import AboutMe from "./pages/AboutMe";
 import MiniApps from "./pages/MiniApps";
 import Footer from "./components/Footer";
 import DestinationMap from "./pages/DestinationMap";
