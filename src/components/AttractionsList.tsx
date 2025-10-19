@@ -1,4 +1,5 @@
 import type { Place } from "../services/GeoApifyService";
+import './AttractionsList.css';
 
 interface AttractionsListProps {
   attractions: Place[];
