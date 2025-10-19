@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import AboutMe from "./pages/aboutMe";
 import MiniApps from "./pages/MiniApps";
 import Footer from "./components/Footer";
+import DestinationMap from "./pages/DestinationMap";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/AboutMe" element={<AboutMe />} />
+            <Route path="/DestinationMap" element={<DestinationMap />} />
             <Route path="/MiniApps" element={<MiniApps />} />
           </Routes>
         </main>

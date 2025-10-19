@@ -26,6 +26,14 @@ const Header = () => {
               Home
             </NavLink>
             <NavLink
+              to="/DestinationMap"
+              className={({ isActive }) =>
+                "nav-link " + (isActive ? "text-danger fw-semibold" : "text-dark")
+              }
+            >
+              Visited Destination Map
+            </NavLink>
+            <NavLink
               to="/MiniApps"
               className={({ isActive }) =>
                 "nav-link " + (isActive ? "text-danger fw-semibold" : "text-dark")
