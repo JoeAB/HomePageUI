@@ -1,3 +1,5 @@
+import type { ListItem } from "./WidgetListTypes";
+
 export interface SteamGame {
   appid: number;
   name: string;
@@ -52,4 +54,16 @@ export interface Book{
 
 export interface BookImage{
   url: string;
+}
+
+export interface Recents{
+  recentlyListedToSong: Track[];
+  recentlyPlayedGames: SteamGame[];
+  currentlyReading: BookResult[]
+}
+
+export interface RecentLists{
+  songs: ListItem[];
+  games: ListItem[];
+  books: ListItem[];
 }

@@ -13,32 +13,11 @@ function AboutMe() {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const musicListItems = await backEndService.getRecentlyListenedToTracks();
-            setRecentMusicTracks(musicListItems);
-        } catch (error) {
-            console.error('Error fetching games:', error);
-        }
-        };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const gamesListItems = await backEndService.getRecentlyPlayedSteamGames();
-            setRecentSteamGames(gamesListItems);
-        } catch (error) {
-            console.error('Error fetching games:', error);
-        }
-        };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const bookListItems = await backEndService.getCurrentReadingBooks();
-            setCurrentlyReadingBooks(bookListItems);
+            const recents = await backEndService.getRecentInterests();
+    
+            setRecentSteamGames(recents.games);
+            setRecentMusicTracks(recents.songs);
+            setCurrentlyReadingBooks(recents.books);
         } catch (error) {
             console.error('Error fetching games:', error);
         }
