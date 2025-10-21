@@ -10,7 +10,15 @@ const Home = () => {
               Hi, I'm <span className="text-danger">Joe Bennett</span>
             </h1>
             <p className="lead text-muted mb-4">
-              I'm a software developer passionate about building modern, efficient, and elegant web applications.
+                Software engineer. Co-founder at Meta Space Lab.
+            </p>
+            <p>
+                This web site is meant to show little projects I worked on, provide a some more information about myself and skills, and most important of all, for me to have fun!
+            </p>
+            <p>
+                Some components make use of blockchain for data storage, while most API calls go through an express app I have deployed to an AWS Lambda that I am use API gateway
+                to proxy calls to. As such, don't be surprised if backend calls are a little slow at times. As this is a personal website, I made the careful decision not to pay for EC2 fees
+                just to show off pet projects.
             </p>
           </div>
         </Container>
@@ -19,17 +27,16 @@ const Home = () => {
       <section className="py-5 bg-light border-top">
         <Container className="d-flex justify-content-center">
           <div style={{ maxWidth: "960px", width: "100%" }}>
-            <h2 className="text-center mb-5 text-dark">Featured Projects</h2>
+            <h2 className="text-center mb-5 text-dark">Featured Links</h2>
             <Row className="g-4">
               <Col md={4}>
                 <Card className="h-100 shadow-sm border-0">
                   <Card.Body>
-                    <Card.Title className="text-danger">Project One</Card.Title>
+                    <Card.Title className="text-danger">Meta Space Lab</Card.Title>
                     <Card.Text>
-                      A web app built with React and TypeScript for managing personal finance efficiently.
                     </Card.Text>
-                    <Button variant="outline-danger" href="#">
-                      View Details
+                    <Button variant="outline-danger" href="https://www.metaspacelab.xyz/">
+                      View
                     </Button>
                   </Card.Body>
                 </Card>
@@ -37,12 +44,11 @@ const Home = () => {
               <Col md={4}>
                 <Card className="h-100 shadow-sm border-0">
                   <Card.Body>
-                    <Card.Title className="text-danger">Project Two</Card.Title>
+                    <Card.Title className="text-danger">Linkedin</Card.Title>
                     <Card.Text>
-                      A minimalist portfolio template designed to showcase creative work and development skills.
                     </Card.Text>
-                    <Button variant="outline-danger" href="#">
-                      View Details
+                    <Button variant="outline-danger" href="https://www.linkedin.com/in/joeabennett/">
+                      View
                     </Button>
                   </Card.Body>
                 </Card>
@@ -50,12 +56,11 @@ const Home = () => {
               <Col md={4}>
                 <Card className="h-100 shadow-sm border-0">
                   <Card.Body>
-                    <Card.Title className="text-danger">Project Three</Card.Title>
+                    <Card.Title className="text-danger">GitHub</Card.Title>
                     <Card.Text>
-                      A blockchain-based tool for verifying digital assets on the XRP Ledger.
                     </Card.Text>
-                    <Button variant="outline-danger" href="#">
-                      View Details
+                    <Button variant="outline-danger" href="https://github.com/JoeAB">
+                      View
                     </Button>
                   </Card.Body>
                 </Card>
