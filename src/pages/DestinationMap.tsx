@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { readContractData } from "../services/DesitnationLedgerService";
 import type { MapMarker, GeoCoordinate } from "../sharedTypes/GeoCoordinateTypes";
 import MapWidget from "../components/Map";
@@ -61,23 +62,29 @@ function DestinationMap() {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-      <div>
-        <MapWidget 
-          startingCoordinates={{ lattitude: 39.2905, longitude: -76.6104 }}
-          mapMarkers={destinationsVisited} 
-          attractionMarkers={attractionMarkers}
-          onMarkerClick={handleMarkerClick}
-          height='400px' 
-          width='600px' 
-        />
-      </div>
-      <AttractionsList 
-        attractions={attractions}
-        isLoading={isLoadingAttractions}
-        error={attractionsError}
-      />
-    </div>
+    <Container fluid className="py-4">
+      <Row className="g-4">
+        <Col xs={12} lg={9} className="d-flex justify-content-center">
+          <div style={{ width: "100%", maxWidth: "100%", height: "600px" }}>
+            <MapWidget 
+              startingCoordinates={{ lattitude: 39.2905, longitude: -76.6104 }}
+              mapMarkers={destinationsVisited} 
+              attractionMarkers={attractionMarkers}
+              onMarkerClick={handleMarkerClick}
+              height='100%' 
+              width='100%' 
+            />
+          </div>
+        </Col>
+        <Col xs={12} lg={3}>
+          <AttractionsList 
+            attractions={attractions}
+            isLoading={isLoadingAttractions}
+            error={attractionsError}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
