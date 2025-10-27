@@ -4,6 +4,12 @@ import { HomepageBackendService } from "../services/HomePageBackendService";
 import type { ListItem } from "../sharedTypes/WidgetListTypes";
 import ListWidget from "../components/WidgetList";
 
+declare global {
+  interface Window {
+    instgrm: any;
+  }
+}
+
 function AboutMe() {
     const backEndService = new HomepageBackendService();
     const [recentSteamGames, setRecentSteamGames] = useState(Array<ListItem>(0));
@@ -23,7 +29,11 @@ function AboutMe() {
         };
         fetchData();
     }, []);
-
+    useEffect(() => {
+        if (window.instgrm) {
+            window.instgrm.Embeds.process();
+        }
+    }, [recentSteamGames, recentMusicTracks, currentReadingBooks]); 
     return (
         <div className="about-me-page w-100">
             <section className="py-5 bg-white">
