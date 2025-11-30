@@ -15,11 +15,6 @@ const Home = () => {
             <p>
                 This web site is meant to show little projects I worked on, provide a some more information about myself and skills, and most important of all, for me to have fun!
             </p>
-            <p>
-                Some components make use of blockchain for data storage, while most API calls go through an express app I have deployed to an AWS Lambda that I am use API gateway
-                to proxy calls to. As such, don't be surprised if backend calls are a little slow at times. As this is a personal website, I made the careful decision not to pay for EC2 fees
-                just to show off pet projects.
-            </p>
           </div>
         </Container>
       </section>
