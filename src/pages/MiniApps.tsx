@@ -1,12 +1,10 @@
-import StarMap from "../components/StarMap";
+import TokenExplorer from "../components/TokenExplorer";
 
 function MiniApps() {
-
-
       return (
         <>
-
-            <StarMap />
+            <br />
+            <TokenExplorer />
         </>
     );
 }
