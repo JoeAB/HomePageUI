@@ -1,6 +1,10 @@
 export interface CoinGeckSDKOptions {}
 
-export type SimplePrice = Record<string, Record<string, number | null>>;
+export interface SimplePrice {
+  id: string;
+  symbol: string;
+  usdValue: number | undefined;
+}
 export type SupportedVsCurrencies = string[];
 
 export interface SimplePriceParams {

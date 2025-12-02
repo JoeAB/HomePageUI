@@ -11,8 +11,11 @@ import {
 
 import { CoinGeckoClient } from "../services/CoinGeckoService";
 import type { SimplePrice } from '../sharedTypes/CoinGeckTypes'; 
+import { Modal } from "react-bootstrap";
+import TokenPriceChart from "./TokenHistoryViewer";
 
 interface ChartData {
+  id: string;
   symbol: string;
   value: number;
 }
@@ -23,9 +26,11 @@ type FilterOption = "all" | "major" | "mid" | "small";
 const TokenExplorer: React.FC = () => {
   const coingeckoClient = new CoinGeckoClient();
 
-  const [priceData, setPriceData] = useState<SimplePrice | null>(null);
+  const [priceData, setPriceData] = useState<Record<string, SimplePrice>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+    const [selectedToken, setSelectedToken] = useState<string | null>(null);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("value-desc");
@@ -45,12 +50,17 @@ useEffect(() => {
         sparkline: false
       });
 
-      const normalizedPrices = markets.reduce((acc, coin) => {
-        acc[coin.symbol.toUpperCase()] = {
-          usd: coin.current_price
-        };
-        return acc;
-      }, {} as SimplePrice);
+    const normalizedPrices = markets.reduce(
+        (acc, coin) => {
+            acc[coin.id] = {
+            id: coin.id,
+            symbol: coin.symbol.toUpperCase(),
+            usdValue: coin.current_price,
+            };
+            return acc;
+        },
+        {} as Record<string, SimplePrice>
+    );
 
       setPriceData(normalizedPrices);
       setError(null);
@@ -69,10 +79,11 @@ useEffect(() => {
     if (!priceData) return [];
 
     let data: ChartData[] = Object.entries(priceData).map(
-      ([symbol, priceObj]) => ({
-        symbol: symbol.toUpperCase(),
-        value: priceObj.usd ?? 0
-      })
+        ([, priceObj]) => ({
+            id: priceObj.id,
+            symbol: priceObj.symbol.toUpperCase(),
+            value: priceObj.usdValue ?? 0
+        })
     );
 
     if (searchTerm) {
@@ -236,27 +247,37 @@ useEffect(() => {
             {displayData.length > 0 ? (
             <div style={{ width: '100%', height: '500px' }}>
                 <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={displayData} margin={{ top: 20, right: 30, left: 80, bottom: 100 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                    <XAxis 
-                    dataKey="symbol" 
-                    tick={{ fill: '#666', fontSize: 11 }}
-                    angle={-45}
-                    textAnchor="end"
-                    height={100}
-                    interval={0}
-                    />
-                    <YAxis 
-                    tick={{ fill: '#666' }}
-                    label={{ value: 'Price (USD)', angle: -90, position: 'insideLeft' }}
-                    tickFormatter={(value) => `$${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value.toFixed(2)}`}
-                    />
-                    <Tooltip 
-                    formatter={(value: number) => [`$${value >= 1 ? value.toFixed(2) : value.toFixed(8)}`, 'Price']}
-                    contentStyle={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb' }}
-                    />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} minPointSize={2} />
-                </BarChart>
+                    <BarChart data={displayData} margin={{ top: 20, right: 30, left: 80, bottom: 100 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                        <XAxis 
+                        dataKey="symbol" 
+                        tick={{ fill: '#666', fontSize: 11 }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={100}
+                        interval={0}
+                        />
+                        <YAxis 
+                        tick={{ fill: '#666' }}
+                        label={{ value: 'Price (USD)', angle: -90, position: 'insideLeft' }}
+                        tickFormatter={(value) => `$${value >= 1000 ? (value/1000).toFixed(0) + 'k' : value.toFixed(2)}`}
+                        />
+                        <Tooltip 
+                        formatter={(value: number) => [`$${value >= 1 ? value.toFixed(2) : value.toFixed(8)}`, 'Price']}
+                        contentStyle={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb' }}
+                        />
+                        <Bar
+                        dataKey="value"
+                        fill="#3b82f6"
+                        radius={[4, 4, 0, 0]}
+                        minPointSize={2}
+                        onClick={(data) => {
+                            if (data?.payload?.id) {
+                                setSelectedToken(data.payload.id);
+                            }
+                        }}
+                        />                
+                    </BarChart>
                 </ResponsiveContainer>
             </div>
             ) : (
@@ -325,6 +346,14 @@ useEffect(() => {
             </div>
             )}
         </div>
+        <Modal show={selectedToken != null} onHide={() => setSelectedToken(null)}>
+            <Modal.Header closeButton>
+                <Modal.Title>Token Price Chart</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <TokenPriceChart id={selectedToken as string}></TokenPriceChart>
+            </Modal.Body>
+        </Modal>
     </div>
   );
 };
